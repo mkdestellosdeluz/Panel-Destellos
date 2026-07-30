@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Llave del Éxito – Destellos de Luz</title>
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  CONFIGURACIÓN (solo una vez):                                   ║
+  ║                                                                  ║
+  ║  1. Ve a script.google.com → Nuevo proyecto                      ║
+  ║  2. Pega el código del archivo Code.gs                           ║
+  ║  3. Implementar → Nueva implementación → Aplicación web          ║
+  ║     · Ejecutar como: Yo                                          ║
+  ║     · Quién tiene acceso: Cualquier persona                      ║
+  ║  4. Copia la URL de implementación                               ║
+  ║  5. Pégala abajo donde dice APPS_SCRIPT_URL                      ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<style>
+:root{color-scheme:light;--pk:#DA1884;--dk:#8C0049;--lt:#FFF0F7;--go:#C9A84C;--gy:#6b7280;--ok:#16a34a;--wn:#d97706;--er:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#FFF5F9;color:#1a1a2e;min-height:100vh}
+.screen{min-height:100vh;display:none;align-items:center;justify-content:center}
+#login-screen{background:linear-gradient(135deg,#FFF0F7,#FFE0F0);display:flex}
+.lcard{background:#fff;border-radius:20px;padding:44px 36px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(218,24,132,.15);text-align:center}
+.lcard .lsub{font-size:11px;letter-spacing:4px;color:var(--gy);text-transform:uppercase;margin-bottom:6px}
+.lcard h1{font-size:24px;color:var(--dk);font-weight:800;margin-bottom:4px}
+.lcard p{color:var(--gy);font-size:13px;margin-bottom:26px;line-height:1.5}
+.lcard input{width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:12px;font-size:22px;text-align:center;letter-spacing:3px;text-transform:uppercase;outline:none;transition:border-color .2s;margin-bottom:12px}
+.lcard input:focus{border-color:var(--pk)}
+.btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--pk),var(--dk));color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s}
+.btn:hover{opacity:.9}
+.hint{margin-top:10px;font-size:11px;color:var(--gy)}
+.spinner{width:42px;height:42px;border:4px solid #fce7f3;border-top-color:var(--pk);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+#dashboard{display:none;min-height:100vh;flex-direction:column}
+.topbar{background:linear-gradient(135deg,var(--dk),var(--pk));color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.topbar h2{font-size:17px;font-weight:700}.topbar small{font-size:11px;opacity:.8;display:block;margin-top:2px}
+.btnout{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:6px 13px;border-radius:8px;cursor:pointer;font-size:12px}
+.tabs-wrap{background:#fff;border-bottom:2px solid #f3e6ef;overflow-x:auto}
+.tabs{display:flex;min-width:max-content;padding:0 12px}
+.tbtn{padding:12px 13px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:500;color:var(--gy);border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.tbtn.on{color:var(--pk);border-bottom-color:var(--pk);font-weight:600}
+.tabp{display:none;padding:18px;max-width:940px;margin:0 auto}
+.tabp.on{display:block}
+.stitle{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:11px;padding-bottom:6px;border-bottom:2px solid var(--lt)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:11px;margin-bottom:16px}
+.card{background:#fff;border-radius:12px;padding:15px;box-shadow:0 2px 10px rgba(0,0,0,.07);border-left:4px solid var(--pk)}
+.card.go{border-left-color:var(--go)}.card.ok{border-left-color:var(--ok)}.card.wn{border-left-color:var(--wn)}.card.er{border-left-color:var(--er)}
+.cl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--gy);margin-bottom:4px}
+.cv{font-size:22px;font-weight:700}
+.cm{font-size:11px;color:var(--gy);margin-top:2px}
+.bdg{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;margin-top:6px}
+.bok{background:#dcfce7;color:#15803d}.bwn{background:#fef9c3;color:#a16207}.ber{background:#fee2e2;color:#991b1b}.binfo{background:#e0f2fe;color:#0369a1}
+.pw{margin-top:7px}.pl{display:flex;justify-content:space-between;font-size:10px;color:var(--gy);margin-bottom:2px}
+.pb{height:7px;background:#f3e6ef;border-radius:4px;overflow:hidden}
+.pf{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--pk),var(--dk));transition:width .5s}
+.pf.go{background:linear-gradient(90deg,var(--go),#a07830)}.pf.ok{background:linear-gradient(90deg,var(--ok),#166534)}
+.ibox{background:var(--lt);border-radius:10px;padding:12px 15px;margin-bottom:13px;font-size:13px;line-height:1.7}
+.ibox ul{padding-left:16px;margin-top:3px}
+.rsum{background:var(--lt);border-radius:10px;padding:13px;margin-bottom:13px;text-align:center}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0}
+.ms label{font-size:10px;color:var(--gy)}.ms .v{font-size:16px;font-weight:700}.ms .m{font-size:10px;color:var(--gy)}
+.terr{padding:28px;text-align:center;color:var(--gy)}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen" class="screen">
+  <div class="lcard">
+    <p class="lsub">Mary Kay · Área Destellos de Luz</p>
+    <h1>🔑 La Llave del Éxito</h1>
+    <p>Ingresa tu código de consultora para ver tus metas y resultados en tiempo real</p>
+    <input id="ci" type="text" placeholder="Ej: 2160AU" maxlength="8"
+      oninput="this.value=this.value.toUpperCase()"
+      onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="btn" onclick="doLogin()">Ver mis resultados →</button>
+    <p class="hint">Código visible en tu portal InTouch® de Mary Kay</p>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loading-screen" class="screen" style="flex-direction:column">
+  <div class="spinner"></div>
+  <p style="color:var(--pk);font-weight:600">Cargando tu información...</p>
+</div>
+
+<!-- ERROR -->
+<div id="error-screen" class="screen" style="flex-direction:column;text-align:center;padding:24px">
+  <div style="font-size:48px">🔍</div>
+  <h2 style="color:var(--dk);margin-top:10px">Código no encontrado</h2>
+  <p id="errmsg" style="color:var(--gy);max-width:320px;margin-top:6px">Verifica tu código e intenta de nuevo.</p>
+  <button class="btn" style="max-width:180px;margin-top:14px" onclick="goLogin()">Reintentar</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="topbar">
+    <div><h2 id="dname">—</h2><small id="dinfo">—</small></div>
+    <button class="btnout" onclick="goLogin()">↩ Salir</button>
+  </div>
+  <div class="tabs-wrap">
+    <div class="tabs">
+      <button class="tbtn on"  onclick="showTab(0)">💰 Comisiones</button>
+      <button class="tbtn"     onclick="showTab(1)">🌟 Primer Año</button>
+      <button class="tbtn"     onclick="showTab(2)">🏆 Conf. Liderazgo</button>
+      <button class="tbtn"     onclick="showTab(3)">🚗 Auto Profesional</button>
+      <button class="tbtn"     onclick="showTab(4)">🎖️ Cortes Seminario</button>
+    </div>
+  </div>
+  <div id="t0" class="tabp on"><div class="terr"><div class="spinner" style="margin:auto"></div></div></div>
+  <div id="t1" class="tabp"></div>
+  <div id="t2" class="tabp"></div>
+  <div id="t3" class="tabp"></div>
+  <div id="t4" class="tabp"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// URLs de Google Sheets públicos (generados por convertirTodo)
+// Cuando actualices los Excel, ejecuta convertirTodo() y actualiza
+// estos IDs con los nuevos que aparecen en los registros.
+// ═══════════════════════════════════════════════════════════════════
+const CSV_URLS = {
+  com: 'https://docs.google.com/spreadsheets/d/1PKXJFujKTYPhY9S4siWTM2jOm4GFOSDyvnphozyhhZY/export?format=csv',
+  est: 'https://docs.google.com/spreadsheets/d/1uV7JA6u0UnCq7U1Esmjx0no6xuQltz4Fq0npxhJG7ds/export?format=csv',
+  cf1: 'https://docs.google.com/spreadsheets/d/14Rho90LRckxBXOF5QI7HccWRs9JkHB-j9rkZhf4EIWA/export?format=csv',
+  cf2: 'https://docs.google.com/spreadsheets/d/1xH1_UsWmYvtPjisKF7fRZLx7W8D2daGG82VNhuphOlw/export?format=csv',
+  cf3: 'https://docs.google.com/spreadsheets/d/1CaPNCRkhEl5pMRKa9mOanBuWqqzPZHj0pQOm8Mrmja4/export?format=csv',
+  cf4: 'https://docs.google.com/spreadsheets/d/1c9Dm6t4i8_pasjg55g0kIc44o60yBGjU7g-7O-KfK8w/export?format=csv',
+  pts: 'https://docs.google.com/spreadsheets/d/1TodmfGT7IJsuhFm741ROE9tJa7W3bFLxn6be28k4dVk/export?format=csv',
+  ecf: 'https://docs.google.com/spreadsheets/d/1FqSMhiMJCwBfJRbfdBcN8C8IfHHJ4ieKJP8BVlLUZBM/export?format=csv',
+  cco: 'https://docs.google.com/spreadsheets/d/1FCgfX3ixV4GrvhrZl6c6btIahqwUM3afSTg5prnbu_I/export?format=csv',
+  aut: 'https://docs.google.com/spreadsheets/d/1C3KxgYqf2tNT2eoq874nL0cHdfQPAgVH0n0wVJCzo6o/export?format=csv',
+  csm: 'https://docs.google.com/spreadsheets/d/1GCvTqfQr9HHugr-bnT2EPrwRbgsbeFgnmeyrdhF2EK8/export?format=csv'
+};
+// ═══════════════════════════════════════════════════════════════════
+
+function showScreen(id){
+  document.getElementById('login-screen').style.display   = id==='login'   ? 'flex'  : 'none';
+  document.getElementById('loading-screen').style.display = id==='loading' ? 'flex'  : 'none';
+  document.getElementById('error-screen').style.display   = id==='error'   ? 'flex'  : 'none';
+  document.getElementById('dashboard').style.display      = id==='dash'    ? 'flex'  : 'none';
+}
+function goLogin(){
+  _code=''; Object.keys(_cache).forEach(k=>delete _cache[k]); _loaded.clear();
+  showScreen('login'); document.getElementById('ci').value='';
+}
+
+// ── CSV ENGINE ────────────────────────────────────────────────────
+
+function csvRow(line){
+  const cols=[];let cur='',inQ=false;
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
+    if(ch==='"'){inQ=!inQ;continue;}
+    if(ch===','&&!inQ){cols.push(cur.trim());cur='';}
+    else cur+=ch;
+  }
+  cols.push(cur.trim());
+  return cols;
+}
+
+function parseFile(raw){
+  const lines=(raw||'').split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+  let hi=lines.findIndex(l=>/consultora/i.test(l)&&l.includes(','));
+  if(hi<0) return {headers:[],rows:[],idx:{}};
+  const headers=csvRow(lines[hi]);
+  const idx={};
+  headers.forEach((h,i)=>{const k=h.trim();if(!idx[k])idx[k]=[];idx[k].push(i);});
+  const rows=[];
+  for(let i=hi+1;i<lines.length;i++){
+    const l=lines[i];
+    if(!l||/^total/i.test(l)) continue;
+    const cols=csvRow(l);
+    if(cols.length<4) continue;
+    const row={};
+    headers.forEach((h,j)=>{row[h.trim()]=(cols[j]||'').trim();});
+    row._raw=cols; row._idx=idx;
+    rows.push(row);
+  }
+  return {headers,rows,idx};
+}
+
+function findDir(rows,code){
+  if(!rows||!rows.length||!code) return null;
+  const c=code.toUpperCase().trim();
+  return rows.find(r=>{
+    const v=(r['Número de Consultora']||r['Consultora']||'').toUpperCase().trim();
+    if(v===c) return true;
+    return (r._raw||[]).some(cell=>(cell||'').toUpperCase().trim()===c);
+  })||null;
+}
+
+function cv(raw,idx,name,occ=0){
+  const positions=(idx[name]||idx[name.trim()]||[]);
+  const pos=positions[occ];
+  return pos!=null?(raw[pos]||''):'';
+}
+
+function money(v){
+  if(!v&&v!==0) return 0;
+  const n=parseFloat(String(v).replace(/[$,\s]/g,'').replace('(','-').replace(')',''));
+  return isNaN(n)?0:n;
+}
+function fmt(n){return '$'+Math.round(Math.abs(n||0)).toLocaleString('es-MX');}
+function num(v){return parseInt(v||0)||0;}
+function pct(v,g){return!g?0:Math.min(100,Math.max(0,Math.round(v/g*100)));}
+
+// ── FETCH CSV DIRECTO DESDE GOOGLE SHEETS PÚBLICO ────────────────
+const _cache={};
+async function getFile(key){
+  if(_cache[key]) return _cache[key];
+  const url=CSV_URLS[key];
+  if(!url) return {headers:[],rows:[],idx:{}};
+  try{
+    const res=await fetch(url+'&t='+Date.now());
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const txt=await res.text();
+    _cache[key]=parseFile(txt);
+    return _cache[key];
+  }catch(e){
+    console.error('Error cargando',key,e);
+    return {headers:[],rows:[],idx:{}};
+  }
+}
+
+// ── UI PRIMITIVES ─────────────────────────────────────────────────
+function bdg(t,c){return`<span class="bdg ${c}">${t}</span>`;}
+function sBdg(p){return p>=100?bdg('✅ Meta lograda','bok'):p>=65?bdg('📈 En progreso','bwn'):bdg('⚡ Necesita avanzar','ber');}
+
+function pCard(label,val,goal,fmtFn,cls=''){
+  fmtFn=fmtFn||fmt;
+  const p=pct(val,goal),falt=Math.max(0,goal-val);
+  return`<div class="card ${cls}">
+    <div class="cl">${label}</div>
+    <div class="cv">${fmtFn(val)}</div>
+    <div class="cm">Meta: ${fmtFn(goal)}</div>
+    ${sBdg(p)}
+    <div class="pw">
+      <div class="pl"><span>${p}%</span><span>Falta: ${fmtFn(falt)}</span></div>
+      <div class="pb"><div class="pf ${cls}" style="width:${p}%"></div></div>
+    </div></div>`;
+}
+
+function iCard(label,val,meta='',btxt='',bcls='binfo'){
+  const fs=String(val).length>13?'14px':'21px';
+  return`<div class="card">
+    <div class="cl">${label}</div>
+    <div class="cv" style="font-size:${fs}">${val||'—'}</div>
+    ${meta?`<div class="cm">${meta}</div>`:''}
+    ${btxt?bdg(btxt,bcls):''}
+  </div>`;
+}
+
+function errBlk(pilar){
+  return`<div class="terr"><p>Sin datos de <strong>${pilar}</strong> para este código.</p>
+  <p style="margin-top:8px;font-size:11px">Verifica que la URL de Google Sheets esté configurada y el archivo tenga tu código.</p></div>`;
+}
+
+// ── TAB 0: COMISIONES ─────────────────────────────────────────────
+async function renderCom(code){
+  const [cData,eData]=await Promise.all([getFile('com'),getFile('est')]);
+  const d=findDir(cData.rows,code);
+  if(!d) return errBlk('Comisiones Directoras');
+  const e=findDir(eData.rows,code);
+  const r=d._raw||[], ix=d._idx||cData.idx;
+  const er=e?._raw||[], eix=e?._idx||eData.idx;
+
+  const mayoreoUnidad  = money(cv(r,ix,'Mayoreo',0));
+  const prodYTD        = money(cv(r,ix,'Producción de unidad al menudeo de año Seminario'));
+  const activosUnidad  = num(cv(r,ix,'Consultores Activos',0));
+  const activosPersonal= num(cv(r,ix,'Consultores Activos',1));
+  const mayoreoPersonal= money(cv(r,ix,'Mayoreo',1));
+  const mayoreoEquipo  = money(cv(r,ix,'Mayoreo',2));
+  const nuevasMes      = num(cv(r,ix,'Nuevas Integrantes',0));
+  const califUnidad    = num(cv(r,ix,'Calificadas de Comienzo Grandioso mensuales',0));
+  const califEquipo    = num(cv(r,ix,'Calificadas de Comienzo Grandioso mensuales',1));
+  const offsprings     = num(cv(r,ix,'Número de Offsprings'));
+
+  // Bono CG Unidad
+  let bonoUnidad=0,bonoUnidadTxt='',bonoUnidadCls='ber';
+  if(califUnidad>=4){
+    bonoUnidad=Math.min(1000,400+Math.max(0,califUnidad-4)*100);
+    bonoUnidadTxt=bonoUnidad>=1000?'🏆 Máximo $1,000':'🎉 Bono ganado: $'+bonoUnidad;
+    bonoUnidadCls='bok';
+  }else{
+    const f=4-califUnidad;
+    bonoUnidadTxt='Faltan '+f+' calificada'+(f>1?'s':'')+' para el bono $400';
+    bonoUnidadCls=califUnidad>0?'bwn':'ber';
+  }
+  const bonoEquipo=califEquipo*100;
+
+  // Estrellas col J
+  const starsTot=num(cv(er,eix,'# de Estrellas de Unidad',0));
+  const nivelEst=cv(er,eix,'Nivel de Estrella personal',0)||'—';
+
+  // Comisión unidad
+  let uPct,uCls,uTxt;
+  if(mayoreoUnidad>=5500){uPct=23;uCls='ok';uTxt='✅ 23% – Máxima comisión';}
+  else if(mayoreoUnidad>=4500){uPct=13;uCls='wn';uTxt='📈 13% – Falta '+fmt(5500-mayoreoUnidad)+' para el 23%';}
+  else{uPct=9;uCls='er';uTxt='⚡ 9% – Falta '+fmt(4500-mayoreoUnidad)+' para el 13%';}
+  const uComision=Math.round(mayoreoUnidad*uPct/100);
+  const t1=Math.round(4500/5500*100);
+
+  // Comisión equipo
+  let ePct,eCls,eTxt;
+  const tieneA1y600=activosPersonal>=5&&mayoreoPersonal>=600;
+  if(tieneA1y600){ePct=13;eCls='ok';eTxt='✅ 13% – Equipo calificado A1';}
+  else if(activosPersonal>=5){ePct=9;eCls='wn';eTxt='📈 9% – Pedido propio <$600 (falta para 13%)';}
+  else if(activosPersonal>=1){ePct=4;eCls='er';eTxt='⚡ 4% – Necesitas '+(5-activosPersonal)+' más activas para el 9%';}
+  else{ePct=0;eCls='er';eTxt='Sin integrantes activas este mes';}
+  const eComision=Math.round(mayoreoEquipo*ePct/100);
+  const totalCom=uComision+eComision;
+
+  const uBar=Math.min(100,Math.round(mayoreoUnidad/5500*100));
+  const eBar=Math.min(100,Math.round(activosPersonal/5*100));
+
+  return`
+    <h2 class="stitle">💰 Comisión de Unidad</h2>
+    <div class="ibox">
+      &nbsp;• <strong>9%</strong> → $0 – $4,499 &nbsp;• <strong>13%</strong> → $4,500 – $5,499 &nbsp;• <strong>23%</strong> → $5,500 o más
+    </div>
+    <div class="grid">
+      <div class="card ${uCls}">
+        <div class="cl">Mayoreo de unidad (col N)</div>
+        <div class="cv">${fmt(mayoreoUnidad)}</div>
+        <div class="cm">Comisión: <strong>${uPct}%</strong> = estimado <strong>${fmt(uComision)}</strong></div>
+        ${bdg(uTxt,uPct===23?'bok':uPct===13?'bwn':'ber')}
+        <div class="pw" style="margin-top:8px">
+          <div class="pl"><span>$0</span><span style="margin-left:auto">$4,500</span><span style="margin-left:auto">$5,500</span></div>
+          <div class="pb" style="position:relative;background:#f0e0eb;height:10px">
+            <div style="position:absolute;left:0;width:${t1}%;height:100%;background:#fde8ef;border-right:2px dashed #e9b4c8"></div>
+            <div style="position:absolute;left:${t1}%;width:${100-t1}%;height:100%;background:#fef3e2;border-right:2px dashed #e9d07a"></div>
+            <div class="pf ${uCls}" style="position:relative;width:${uBar}%;height:100%;z-index:1"></div>
+          </div>
+          <div class="pl" style="margin-top:3px"><span>9%</span><span style="margin-left:auto">13%</span><span style="margin-left:auto">23%</span></div>
+        </div>
+      </div>
+      ${iCard('Producción unidad YTD',fmt(prodYTD),'Acumulado año seminario')}
+      ${iCard('Consultoras activas',activosUnidad,'En tu unidad',
+        activosUnidad>=15?'Excelente':activosUnidad>=8?'Buen ritmo':'Seguir creciendo',
+        activosUnidad>=15?'bok':activosUnidad>=8?'bwn':'ber')}
+    </div>
+
+    <h2 class="stitle">🤝 Comisión por Equipo Personal</h2>
+    <div class="ibox">
+      &nbsp;• <strong>4%</strong> → 1–4 activas &nbsp;• <strong>9%</strong> → 5+ activas &nbsp;• <strong>13%</strong> → 5+ activas A1 + pedido propio ≥$600
+    </div>
+    <div class="grid">
+      <div class="card ${eCls}">
+        <div class="cl">Mayoreo equipo personal</div>
+        <div class="cv">${fmt(mayoreoEquipo)}</div>
+        <div class="cm">Comisión: <strong>${ePct}%</strong> = estimado <strong>${fmt(eComision)}</strong></div>
+        ${bdg(eTxt,ePct===13?'bok':ePct===9?'bwn':'ber')}
+        <div class="pw" style="margin-top:8px">
+          <div class="pl"><span>Activas: <strong>${activosPersonal}</strong></span><span style="margin-left:auto">Meta: 5</span></div>
+          <div class="pb"><div class="pf ${eCls}" style="width:${eBar}%"></div></div>
+        </div>
+        ${ePct===9?`<div class="cm" style="margin-top:6px">Pedido propio: ${fmt(mayoreoPersonal)} ${mayoreoPersonal>=600?'✅':'→ falta $'+fmt(600-mayoreoPersonal)+' para 13%'}</div>`:''}
+      </div>
+      ${iCard('Integrantes activas',activosPersonal,'Tu equipo personal',
+        activosPersonal>=5?'5+ activas ✓':'Faltan '+(5-activosPersonal)+' para 9%',
+        activosPersonal>=5?'bok':'bwn')}
+      <div class="card go">
+        <div class="cl">Estimado total comisiones</div>
+        <div class="cv">${fmt(totalCom)}</div>
+        <div class="cm">${fmt(uComision)} unidad + ${fmt(eComision)} equipo</div>
+        ${bdg('Estimado sin deducciones MK','binfo')}
+      </div>
+    </div>
+
+    <h2 class="stitle">🎁 Bono CG – Unidad (col W)</h2>
+    <div class="ibox">
+      4 calificadas CG de unidad → <strong>$400</strong>; cada adicional → <strong>+$100</strong>; máximo <strong>$1,000</strong>/mes.
+    </div>
+    <div class="grid">
+      <div class="card ${bonoUnidad>0?'ok':''}">
+        <div class="cl">Calificadas CG Unidad (col W)</div>
+        <div class="cv">${califUnidad}</div>
+        <div class="cm">Mínimo 4 para activar bono</div>
+        ${bdg(bonoUnidadTxt,bonoUnidadCls)}
+        <div class="pw">
+          <div class="pl"><span>${califUnidad} de 4 mínimo</span><span style="margin-left:auto">Máx: 10</span></div>
+          <div class="pb"><div class="pf ${bonoUnidad>0?'ok':''}" style="width:${Math.min(100,Math.round(califUnidad/10*100))}%"></div></div>
+        </div>
+      </div>
+      <div class="card go">
+        <div class="cl">Bono Unidad estimado</div>
+        <div class="cv">${bonoUnidad>0?'$'+bonoUnidad:'$0'}</div>
+        <div class="cm">${califUnidad>=4?califUnidad+' calificadas → $400'+(califUnidad>4?' + $'+((califUnidad-4)*100)+' adicional':''):'Necesitas '+(4-califUnidad)+' más'}</div>
+        ${bonoUnidad>=1000?bdg('🏆 Máximo','bok'):bonoUnidad>0?bdg('✅ Bono activo','bok'):bdg('Sin bono aún','ber')}
+      </div>
+      ${iCard('Nuevas integrantes (mes)',nuevasMes,'Incorporaciones este mes',
+        nuevasMes>=4?nuevasMes+' nuevas ✓':nuevasMes>0?nuevasMes+' nueva'+(nuevasMes>1?'s':''):'Sin nuevas',
+        nuevasMes>=4?'bok':nuevasMes>0?'bwn':'ber')}
+    </div>
+
+    <h2 class="stitle">🎁 Bono CG – Equipo (col AE)</h2>
+    <div class="ibox">
+      Bono independiente: <strong>$100</strong> por cada calificada CG de equipo, sin mínimo requerido.
+    </div>
+    <div class="grid">
+      <div class="card ${califEquipo>0?'ok':''}">
+        <div class="cl">Calificadas CG Equipo (col AE)</div>
+        <div class="cv">${califEquipo}</div>
+        <div class="cm">$100 por cada una</div>
+        ${califEquipo>0?bdg('🎉 Bono: $'+bonoEquipo,'bok'):bdg('Sin calificadas de equipo','bwn')}
+      </div>
+      <div class="card ${bonoEquipo>0?'go':''}">
+        <div class="cl">Bono Equipo estimado</div>
+        <div class="cv">${bonoEquipo>0?'$'+bonoEquipo:'$0'}</div>
+        <div class="cm">${califEquipo} calificada${califEquipo!==1?'s':''} × $100</div>
+        ${bonoEquipo>0?bdg('✅ Bono activo','bok'):bdg('$0 este mes','binfo')}
+      </div>
+    </div>
+
+    <h2 class="stitle">⭐ Estrellas de Unidad</h2>
+    <div class="ibox">
+      <strong>Bono:</strong> $300 × 5 Consultoras Estrella + $50 por cada adicional. &nbsp;
+      <strong>Q1:</strong> 16 jul – 15 sep 2026
+    </div>
+    <div class="grid">
+      ${pCard('Estrellas de Unidad (col J – Q1)',starsTot,5,n=>n+' ⭐','go')}
+      ${iCard('Nivel Estrella Personal',nivelEst,'Tu calificación estrella')}
+      ${offsprings>0?iCard('Directoras descendientes',offsprings,'',offsprings+' descendiente'+(offsprings>1?'s':''),'binfo'):''}
+    </div>`;
+}
+
+// ── TAB 1: PROGRAMA PRIMER AÑO ────────────────────────────────────
+async function renderPA(code){
+  const [d1,d2,d3,d4]=await Promise.all([getFile('cf1'),getFile('cf2'),getFile('cf3'),getFile('cf4')]);
+  function retoCard(label,data){
+    const d=findDir(data.rows,code);
+    if(!d) return`<div class="card" style="opacity:.4;border-left-color:#ccc">
+      <div class="cl">${label}</div>
+      <div class="cv" style="font-size:14px;color:var(--gy)">No inscrita</div>
+      <div class="cm">No aplica en este período</div>
+      ${bdg('Sin período activo','binfo')}</div>`;
+    const r=d._raw||[], ix=d._idx||data.idx;
+    const tot =money(cv(r,ix,'Total',0));
+    const met =money(cv(r,ix,'Meta',0))||15000;
+    const nec =money(cv(r,ix,'Necesario',0));
+    const cTot=num(cv(r,ix,'Cantidad total',0))||num(r[15]);
+    const cMet=num(cv(r,ix,'Meta',1))||6;
+    const cNec=num(cv(r,ix,'Necesario',1));
+    const plazo=cv(r,ix,'Plazo del concurso')||r[9]||'—';
+    const win=(r.slice(18)||[]).some(v=>/^(yes|si|sí|1)$/i.test((v||'').trim()));
+    const p1=pct(tot,met),p2=pct(cTot,cMet);
+    const cls=win||(p1>=100&&p2>=100)?'ok':'';
+    const b=win?bdg('🏆 Ganadora – $1,000','bok'):(p1>=100&&p2>=100)?bdg('✅ Meta lograda – $1,000','bok'):(p1>=65||p2>=65)?bdg('📈 En progreso','bwn'):bdg('⚡ Necesita avanzar','ber');
+    return`<div class="card ${cls}">
+      <div class="cl">${label}</div>
+      <div class="g2">
+        <div class="ms"><label>Producción</label>
+          <div class="v">${fmt(tot)}</div><div class="m">Meta: ${fmt(met)}</div>
+          <div class="pb" style="margin-top:4px"><div class="pf ${cls}" style="width:${p1}%"></div></div>
+          <div class="m" style="margin-top:2px">${p1}% · ${nec>0?'Falta: '+fmt(nec):'✓ Lista'}</div>
+        </div>
+        <div class="ms"><label>Calificadas</label>
+          <div class="v">${cTot||'—'}</div><div class="m">Meta: ${cMet}</div>
+          <div class="pb" style="margin-top:4px"><div class="pf go" style="width:${p2}%"></div></div>
+          <div class="m" style="margin-top:2px">${p2}% · ${cNec>0?'Falta: '+cNec:'✓ Lista'}</div>
+        </div>
+      </div>
+      <div class="cm" style="margin-top:4px">📅 ${plazo}</div>
+      ${b}</div>`;
+  }
+  return`
+    <h2 class="stitle">🌟 Programa Director Primer Año</h2>
+    <div class="ibox">
+      <strong>$1,000 por cada reto trimestral:</strong> <strong>$15,000</strong> producción + <strong>6 calificadas</strong> CG®.
+      Ganar los 4 = $1,000 adicional + banner Fabulosos 50.
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(255px,1fr))">
+      ${retoCard('1️⃣ Comienza con Fuerza – Meses 1-3',d1)}
+      ${retoCard('2️⃣ Crece con Fuerza – Meses 4-6',d2)}
+      ${retoCard('3️⃣ Sigue con Fuerza – Meses 7-9',d3)}
+      ${retoCard('4️⃣ Dirige con Fuerza – Meses 10-12',d4)}
+    </div>`;
+}
+
+// ── TAB 2: CONFERENCIA DE LIDERAZGO ──────────────────────────────
+async function renderConf(code){
+  const [ccData,ecData,ptData]=await Promise.all([getFile('cco'),getFile('ecf'),getFile('pts')]);
+  const d=findDir(ccData.rows,code);
+  const de=findDir(ecData.rows,code);
+  const dp=findDir(ptData.rows,code);
+  const r=d?._raw||[], ix=d?._idx||ccData.idx;
+  const er=de?._raw||[], eix=de?._idx||ecData.idx;
+  const persYTD=money(cv(r,ix,'Personal',0)||r[8]);
+  const unidYTD=money(cv(r,ix,'Unidad',0)||r[9]);
+  const calif  =num(cv(r,ix,'Calificada',0)||r[11]);
+  const stars  =num(cv(er,eix,'Estrellas de Seminario a la fecha 2')||er[16]);
+  const nivel  =cv(er,eix,'Nivel de Estrella personal',0)||'—';
+  const puntos =num(dp?.['Total de puntos']||(dp?._raw||[])[6]);
+  const M1=27500,M2=15,M3=200000;
+  const ok1=persYTD>=M1,ok2=calif>=M2,ok3=unidYTD>=M3;
+  const retos=[ok1,ok2,ok3].filter(Boolean).length;
+  return`
+    <h2 class="stitle">🏆 Conferencia de Liderazgo 2027</h2>
+    <div class="ibox">
+      <strong>Fiesta Velada al Atardecer:</strong> 2 de 3 retos (1 jul – 31 dic 2026):<br>
+      ① $27,500 ventas personales &nbsp; ② 15 nuevas calificadas &nbsp; ③ $200,000 volumen unidad
+    </div>
+    <div class="rsum">
+      <div style="font-size:12px;color:var(--gy)">Retos completados</div>
+      <div style="font-size:36px;font-weight:700;color:var(--dk)">${retos} / 3</div>
+      ${retos>=2?bdg('🎊 Entrada VIP – Velada al Atardecer','bok'):retos===1?bdg('🎉 1 de 2 retos logrados','bwn'):bdg('Sin elegibilidad aún','ber')}
+    </div>
+    <div class="grid">
+      ${pCard('① Ventas Personales YTD',persYTD,M1,fmt,ok1?'ok':'')}
+      ${pCard('② Nuevas Calificadas',calif,M2,n=>String(n),ok2?'ok':'')}
+      ${pCard('③ Volumen de Unidad YTD',unidYTD,M3,fmt,ok3?'ok':'')}
+    </div>
+    <h2 class="stitle">⭐ Estrellas & Puntos al Paraíso</h2>
+    <div class="grid">
+      ${pCard('Estrellas de Unidad (Conferencia)',stars,14,n=>n+' ⭐','go')}
+      ${iCard('Nivel Estrella Personal',nivel,'',nivel&&nivel!=='—'?'Estrella activa':'Sin nivel',nivel&&nivel!=='—'?'bok':'bwn')}
+      ${iCard('Puntos al Paraíso',puntos?puntos.toLocaleString():'—','Top 10 → escenario',puntos>0?'En ranking':'—',puntos>0?'binfo':'bwn')}
+    </div>`;
+}
+
+// ── TAB 3: AUTO PROFESIONAL ───────────────────────────────────────
+async function renderAuto(code){
+  const aData=await getFile('aut');
+  const d=findDir(aData.rows,code);
+  if(!d) return errBlk('Auto Profesional');
+  const r=d._raw||[], ix=d._idx||aData.idx;
+  const award  =cv(r,ix,'Award Status')||r[7]||'—';
+  const tipo   =cv(r,ix,'Tipo de premio')||r[8]||'—';
+  const estatus=cv(r,ix,'Estatus')||r[10]||'—';
+  const recal  =cv(r,ix,'Fecha de recalificación')||r[11]||'—';
+  const exceso =money(cv(r,ix,'Exceso del trimestre anterior')||r[12]);
+  const meta   =money(cv(r,ix,'Meta')||r[13]);
+  const nec    =money(cv(r,ix,'Total adicional necesario para de la meta')||r[14]);
+  const activo =/mantenimiento|recalificaci/i.test(estatus);
+  let car='—',carMeta=0,cls='';
+  if(/Grand Achiever|Gran Ganadora/i.test(award)){car='🚗 Gran Ganadora';carMeta=24000;cls='wn';}
+  if(/Premier Club|Club de Primera/i.test(award)){car='🚙 Club de Primera';carMeta=33000;}
+  if(/Cadillac/i.test(award)){car='🏎️ Cadillac Rosado';carMeta=57000;cls='ok';}
+  const prodActual=carMeta>0&&nec>0?Math.max(0,carMeta-nec):carMeta;
+  return`
+    <h2 class="stitle">🚗 Uso del Auto Profesional</h2>
+    <div class="ibox">
+      <strong>Gran Ganadora:</strong> $24,000/trim &nbsp; <strong>Club de Primera:</strong> $33,000/trim &nbsp; <strong>Cadillac:</strong> $57,000/trim
+    </div>
+    <div class="grid">
+      ${iCard('Programa actual',car,award,activo?'Activo':'Sin programa activo',activo?'bok':'bwn')}
+      ${iCard('Tipo de recompensa',tipo,'')}
+      ${iCard('Estatus',estatus,'',activo?'Vigente':'—',activo?'bok':'binfo')}
+      ${recal&&recal!=='—'?iCard('Próx. recalificación',recal,''):''}
+    </div>
+    ${carMeta>0?`
+    <h2 class="stitle">📊 Progreso trimestral</h2>
+    <div class="grid">
+      ${pCard('Producción este trimestre',prodActual,carMeta,fmt,cls)}
+      ${iCard('Faltante para meta',nec>0?fmt(nec):'✅ Completa',nec>0?'Para '+fmt(carMeta):'',nec<=0?'Sin deuda':'Pendiente',nec<=0?'bok':'ber')}
+      ${exceso>0?iCard('Exceso acumulado',fmt(exceso),'Crédito trimestres anteriores','Disponible','bok'):''}
+    </div>`:''}`;
+}
+
+// ── TAB 4: CORTES DE SEMINARIO ────────────────────────────────────
+async function renderCortes(code){
+  const csData=await getFile('csm');
+  const d=findDir(csData.rows,code);
+  if(!d) return errBlk('Cortes de Seminario');
+  const r=d._raw||[], ix=d._idx||csData.idx;
+  const persYTD=money(cv(r,ix,'Personal',0)||r[8]);
+  const unidYTD=money(cv(r,ix,'Unidad',0)||r[9]);
+  const calif  =num(cv(r,ix,'Calificada',0)||r[11]);
+  const comis  =money(cv(r,ix,'Ganadas Comisiones',0)||r[12]);
+  const M_V=45000,M_C=24,M_L=300000,M_E=650000;
+  const rv=persYTD>=M_V,rc=calif>=M_C,rl=unidYTD>=M_L,re=unidYTD>=M_E;
+  function cortCard(label,val,goal,fmtFn,logrado,premio){
+    const p=pct(val,goal);
+    return`<div class="card ${logrado?'ok':''}">
+      <div class="cl">${label}</div>
+      <div class="cv">${fmtFn(val)}</div>
+      <div class="cm">Meta: ${fmtFn(goal)}</div>
+      ${logrado?bdg(premio,'bok'):sBdg(p)}
+      <div class="pw">
+        <div class="pl"><span>${p}%</span><span>Falta: ${fmtFn(Math.max(0,goal-val))}</span></div>
+        <div class="pb"><div class="pf ${logrado?'ok':''}" style="width:${p}%"></div></div>
+      </div></div>`;
+  }
+  return`
+    <h2 class="stitle">🎖️ Cortes de Seminario 2027</h2>
+    <div class="ibox">
+      <strong>Período:</strong> 1 jul 2026 – 30 jun 2027<br>
+      💍 Corte Ventas $45,000 &nbsp; 🐝 Corte Compartir 24 nuevas &nbsp; 💰 Círculo Logros $300K &nbsp; ✈️ Excelencia $650K
+    </div>
+    <div class="grid">
+      ${cortCard('Corte de Ventas Personales',persYTD,M_V,fmt,rv,'💍 Anillo Amatista o $500')}
+      ${cortCard('Corte de Compartir',calif,M_C,n=>String(n),rc,'🐝 Broche Abeja o $525')}
+    </div>
+    <div class="grid">
+      ${cortCard('Círculo de Logros',unidYTD,M_L,fmt,rl,'💰 Gratificación $1,000')}
+      <div class="card ${re?'ok':'go'}">
+        <div class="cl">Círculo de la Excelencia</div>
+        <div class="cv">${fmt(unidYTD)}</div>
+        <div class="cm">Meta: ${fmt(M_E)}</div>
+        ${re?bdg('✈️ Viaje a Roma','bok'):bdg('Falta: '+fmt(M_E-unidYTD),'binfo')}
+        <div class="pw">
+          <div class="pl"><span>${pct(unidYTD,M_E)}%</span><span>${fmt(M_E)}</span></div>
+          <div class="pb"><div class="pf go" style="width:${pct(unidYTD,M_E)}%"></div></div>
+        </div>
+      </div>
+    </div>
+    ${comis>0?`<div class="grid">${iCard('Comisiones ganadas YTD',fmt(comis),'Acumulado año Seminario','Activas','bok')}</div>`:''}`;
+}
+
+// ── ROUTING ────────────────────────────────────────────────────────
+const RENDERS=[renderCom,renderPA,renderConf,renderAuto,renderCortes];
+const _loaded=new Set();
+let _code='';
+
+async function showTab(idx){
+  document.querySelectorAll('.tabp').forEach((el,i)=>el.classList.toggle('on',i===idx));
+  document.querySelectorAll('.tbtn').forEach((el,i)=>el.classList.toggle('on',i===idx));
+  if(_loaded.has(idx)) return;
+  _loaded.add(idx);
+  const el=document.getElementById('t'+idx);
+  el.innerHTML=`<div class="terr"><div class="spinner" style="margin:auto"></div><p style="margin-top:10px;color:var(--pk)">Cargando datos...</p></div>`;
+  try{el.innerHTML=await RENDERS[idx](_code);}
+  catch(e){el.innerHTML=`<div class="terr">⚠️ Error: ${e.message}</div>`;}
+}
+
+async function doLogin(){
+  const code=document.getElementById('ci').value.trim().toUpperCase();
+  if(!code) return;
+  showScreen('loading');
+  _code=code;
+  try{
+    const data=await getFile('com');
+    const dir=findDir(data.rows,code);
+    if(!dir){
+      const n=data.rows.length;
+      document.getElementById('errmsg').textContent=
+        n>0?`Código "${code}" no encontrado (${n} directoras en archivo). Verifica en InTouch®.`
+           :'No se pudo conectar con los datos. Verifica las URLs de Google Sheets.';
+      showScreen('error'); return;
+    }
+    const name=dir['Nombre']||`${dir['Primer nombre']||''} ${dir['Apellido']||''}`.trim()||code;
+    const nivel=dir['Nivel profesional']||'';
+    const debut=dir['Fecha de debut']||'';
+    document.getElementById('dname').textContent=name;
+    document.getElementById('dinfo').textContent=[nivel,debut?'Debut: '+debut:'','Código: '+code].filter(Boolean).join(' · ');
+    _loaded.clear();
+    for(let i=1;i<5;i++) document.getElementById('t'+i).innerHTML='';
+    showScreen('dash');
+    showTab(0);
+  }catch(e){
+    document.getElementById('errmsg').textContent='Error de conexión: '+e.message;
+    showScreen('error');
+  }
+}
+</script>
+</body>
+</html>
