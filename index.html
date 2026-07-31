@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Llave del Éxito – Destellos de Luz</title>
+<style>
+:root{color-scheme:light;--pk:#DA1884;--dk:#8C0049;--lt:#FFF0F7;--go:#C9A84C;--gy:#6b7280;--ok:#16a34a;--wn:#d97706;--er:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#FFF5F9;color:#1a1a2e;min-height:100vh}
+.screen{min-height:100vh;display:none;align-items:center;justify-content:center}
+#login-screen{background:linear-gradient(135deg,#FFF0F7,#FFE0F0);display:flex}
+.lcard{background:#fff;border-radius:20px;padding:44px 36px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(218,24,132,.15);text-align:center}
+.lcard .lsub{font-size:11px;letter-spacing:4px;color:var(--gy);text-transform:uppercase;margin-bottom:6px}
+.lcard h1{font-size:24px;color:var(--dk);font-weight:800;margin-bottom:4px}
+.lcard p{color:var(--gy);font-size:13px;margin-bottom:26px;line-height:1.5}
+.lcard input{width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:12px;font-size:22px;text-align:center;letter-spacing:3px;text-transform:uppercase;outline:none;transition:border-color .2s;margin-bottom:12px}
+.lcard input:focus{border-color:var(--pk)}
+.btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--pk),var(--dk));color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s}
+.btn:hover{opacity:.9}
+.hint{margin-top:10px;font-size:11px;color:var(--gy)}
+.spinner{width:42px;height:42px;border:4px solid #fce7f3;border-top-color:var(--pk);border-radius:50%;animation:spin .8s linear infinite;margin:auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+#dashboard{display:none;min-height:100vh;flex-direction:column}
+.topbar{background:linear-gradient(135deg,var(--dk),var(--pk));color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.topbar h2{font-size:17px;font-weight:700}.topbar small{font-size:11px;opacity:.8;display:block;margin-top:2px}
+.btnout{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:6px 13px;border-radius:8px;cursor:pointer;font-size:12px}
+.tabs-wrap{background:#fff;border-bottom:2px solid #f3e6ef;overflow-x:auto}
+.tabs{display:flex;min-width:max-content;padding:0 12px}
+.tbtn{padding:12px 13px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:500;color:var(--gy);border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.tbtn.on{color:var(--pk);border-bottom-color:var(--pk);font-weight:600}
+.tabp{display:none;padding:18px;max-width:940px;margin:0 auto}
+.tabp.on{display:block}
+.stitle{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:11px;padding-bottom:6px;border-bottom:2px solid var(--lt)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:11px;margin-bottom:16px}
+.card{background:#fff;border-radius:12px;padding:15px;box-shadow:0 2px 10px rgba(0,0,0,.07);border-left:4px solid var(--pk)}
+.card.go{border-left-color:var(--go)}.card.ok{border-left-color:var(--ok)}.card.wn{border-left-color:var(--wn)}.card.er{border-left-color:var(--er)}
+.cl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--gy);margin-bottom:4px}
+.cv{font-size:22px;font-weight:700}
+.cm{font-size:11px;color:var(--gy);margin-top:2px}
+.bdg{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;margin-top:6px}
+.bok{background:#dcfce7;color:#15803d}.bwn{background:#fef9c3;color:#a16207}.ber{background:#fee2e2;color:#991b1b}.binfo{background:#e0f2fe;color:#0369a1}
+.pw{margin-top:7px}.pl{display:flex;justify-content:space-between;font-size:10px;color:var(--gy);margin-bottom:2px}
+.pb{height:7px;background:#f3e6ef;border-radius:4px;overflow:hidden}
+.pf{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--pk),var(--dk));transition:width .5s}
+.pf.go{background:linear-gradient(90deg,var(--go),#a07830)}.pf.ok{background:linear-gradient(90deg,var(--ok),#166534)}
+.ibox{background:var(--lt);border-radius:10px;padding:12px 15px;margin-bottom:13px;font-size:13px;line-height:1.7}
+.rsum{background:var(--lt);border-radius:10px;padding:13px;margin-bottom:13px;text-align:center}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0}
+.ms label{font-size:10px;color:var(--gy)}.ms .v{font-size:16px;font-weight:700}.ms .m{font-size:10px;color:var(--gy)}
+.terr{padding:28px;text-align:center;color:var(--gy)}
+.nota{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:11px;color:#795548;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div id="login-screen" class="screen">
+  <div class="lcard">
+    <p class="lsub">Mary Kay · Área Destellos de Luz</p>
+    <h1>🔑 La Llave del Éxito</h1>
+    <p>Ingresa tu código de consultora para ver tus metas y resultados</p>
+    <input id="ci" type="text" placeholder="Ej: 2160AU" maxlength="8"
+      oninput="this.value=this.value.toUpperCase()"
+      onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="btn" onclick="doLogin()">Ver mis resultados →</button>
+    <p class="hint">Código visible en tu portal InTouch® de Mary Kay</p>
+  </div>
+</div>
+<div id="error-screen" class="screen" style="flex-direction:column;text-align:center;padding:24px">
+  <div style="font-size:48px">🔍</div>
+  <h2 style="color:var(--dk);margin-top:10px">Código no encontrado</h2>
+  <p id="errmsg" style="color:var(--gy);max-width:320px;margin-top:6px">Verifica tu código e intenta de nuevo.</p>
+  <button class="btn" style="max-width:180px;margin-top:14px" onclick="goLogin()">Reintentar</button>
+</div>
+<div id="dashboard">
+  <div class="topbar">
+    <div><h2 id="dname">—</h2><small id="dinfo">—</small></div>
+    <button class="btnout" onclick="goLogin()">↩ Salir</button>
+  </div>
+  <div class="tabs-wrap">
+    <div class="tabs">
+      <button class="tbtn on" onclick="showTab(0)">💰 Comisiones</button>
+      <button class="tbtn"    onclick="showTab(1)">🌟 Primer Año</button>
+      <button class="tbtn"    onclick="showTab(2)">🏆 Conf. Liderazgo</button>
+      <button class="tbtn"    onclick="showTab(3)">🚗 Auto Profesional</button>
+      <button class="tbtn"    onclick="showTab(4)">🎖️ Cortes Seminario</button>
+    </div>
+  </div>
+  <div id="t0" class="tabp on"></div>
+  <div id="t1" class="tabp"></div>
+  <div id="t2" class="tabp"></div>
+  <div id="t3" class="tabp"></div>
+  <div id="t4" class="tabp"></div>
+</div>
+<script>
+const DATOS={"3501EG":{"nombre":"Jannelik Engronatt Marquez","nivel":"NSD","debut":"01/07/2018","prodYTD":17333,"mayoreoUnidad":8745.3,"activosUnidad":22,"nuevasUnidad":1,"califUnidad":0,"mayoreoPersonal":771,"activosPersonal":19,"califEquipo":0,"mayoreoEquipo":7545.3,"offsprings":5,"estrellas":0,"nivelEstrella":"","persYTD":0,"unidYTD":0,"califConf":0,"comisConf":0,"puntos":43322,"autAward":"","autTipo":"","autEstatus":"","autRecal":"","autExceso":0,"autMeta":0,"autNec":0,"cf":[null,null,null,null]},"1876NX":{"nombre":"Elisa Mendoza","nivel":"FDVE","debut":"01/02/2020","prodYTD":10803,"mayoreoUnidad":5139.7,"activosUnidad":33,"nuevasUnidad":2,"califUnidad":0,"mayoreoPersonal":608.5,"activosPersonal":15,"califEquipo":0,"mayoreoEquipo":3866.9,"offsprings":3,"estrellas":1,"nivelEstrella":"Diamante","persYTD":1217,"unidYTD":10803,"califConf":0,"comisConf":0,"puntos":60901,"autAward":"SD Premier Club V2","autTipo":"Auto","autEstatus":"Recalificación : Q1","autRecal":"01/01/2026","autExceso":266.55,"autMeta":30000,"autNec":24860.3,"cf":[null,null,null,null]},"2160AU":{"nombre":"Viky Acosta Rincon","nivel":"DVES","debut":"01/08/2020","prodYTD":30343,"mayoreoUnidad":13747.5,"activosUnidad":38,"nuevasUnidad":7,"califUnidad":6,"mayoreoPersonal":1949,"activosPersonal":31,"califEquipo":3,"mayoreoEquipo":15102,"offsprings":6,"estrellas":1,"nivelEstrella":"Perla","persYTD":3898,"unidYTD":30343,"califConf":3,"comisConf":407.75,"puntos":83706,"autAward":"SD Pink Cadillac V3","autTipo":"Auto","autEstatus":"Recalificación","autRecal":"01/07/2026","autExceso":127.5,"autMeta":57000,"autNec":41452.5,"cf":[null,null,null,null]},"6032RP":{"nombre":"Katiuska Rincones Di Rocco","nivel":"DS","debut":"01/09/2020","prodYTD":19193,"mayoreoUnidad":8915.5,"activosUnidad":36,"nuevasUnidad":3,"califUnidad":3,"mayoreoPersonal":4161,"activosPersonal":35,"califEquipo":3,"mayoreoEquipo":4754.5,"offsprings":1,"estrellas":1,"nivelEstrella":"Perla","persYTD":8322,"unidYTD":19193,"califConf":3,"comisConf":243.36,"puntos":46419,"autAward":"SD Pink Cadillac V3","autTipo":"Efectivo","autEstatus":"Mantenimiento","autRecal":"01/01/2027","autExceso":4923.2,"autMeta":57000,"autNec":46284.5,"cf":[null,null,null,null]},"3705EI":{"nombre":"Yohana Daboin","nivel":"DS","debut":"01/03/2022","prodYTD":15174,"mayoreoUnidad":6356,"activosUnidad":22,"nuevasUnidad":6,"califUnidad":5,"mayoreoPersonal":603.5,"activosPersonal":20,"califEquipo":5,"mayoreoEquipo":5752.5,"offsprings":1,"estrellas":1,"nivelEstrella":"Perla","persYTD":1207,"unidYTD":15174,"califConf":5,"comisConf":393.19,"puntos":46915,"autAward":"SD Premier Club V3","autTipo":"Auto","autEstatus":"Mantenimiento","autRecal":"","autExceso":5044.9,"autMeta":33000,"autNec":23026,"cf":[null,null,null,null]},"7715UC":{"nombre":"Imalay Trocel","nivel":"DIR","debut":"01/11/2024","prodYTD":1363,"mayoreoUnidad":681.5,"activosUnidad":12,"nuevasUnidad":0,"califUnidad":0,"mayoreoPersonal":341,"activosPersonal":10,"califEquipo":0,"mayoreoEquipo":340.5,"offsprings":0,"estrellas":0,"nivelEstrella":"","persYTD":682,"unidYTD":1363,"califConf":0,"comisConf":0,"puntos":19246,"autAward":"SD Grand Achiever V3","autTipo":"Efectivo","autEstatus":"Mantenimiento : Q1","autRecal":"01/10/2026","autExceso":5549.1,"autMeta":24000,"autNec":23318.5,"cf":[null,null,null,null]},"6193TM":{"nombre":"Surly Rojas","nivel":"DS","debut":"01/06/2021","prodYTD":18284,"mayoreoUnidad":8540.4,"activosUnidad":47,"nuevasUnidad":10,"califUnidad":4,"mayoreoPersonal":673.5,"activosPersonal":12,"califEquipo":1,"mayoreoEquipo":3863.6,"offsprings":2,"estrellas":0,"nivelEstrella":"","persYTD":1347,"unidYTD":18284,"califConf":0,"comisConf":0,"puntos":123791,"autAward":"SD Premier Club V3","autTipo":"Auto","autEstatus":"Mantenimiento","autRecal":"01/04/2027","autExceso":10000.85,"autMeta":33000,"autNec":23859.6,"cf":[null,null,null,null]},"7540UH":{"nombre":"Sabrina Urdaneta","nivel":"DIR","debut":"01/01/2022","prodYTD":22362,"mayoreoUnidad":9514,"activosUnidad":50,"nuevasUnidad":8,"califUnidad":9,"mayoreoPersonal":1964.5,"activosPersonal":46,"califEquipo":9,"mayoreoEquipo":7549.5,"offsprings":0,"estrellas":1,"nivelEstrella":"Perla","persYTD":3929,"unidYTD":22362,"califConf":8,"comisConf":647.67,"puntos":62537,"autAward":"SD Premier Club V3","autTipo":"Efectivo","autEstatus":"Mantenimiento","autRecal":"01/07/2027","autExceso":11871,"autMeta":33000,"autNec":18086,"cf":[null,null,null,null]},"7053EI":{"nombre":"Noemy Castillo","nivel":"DIR","debut":"01/08/2022","prodYTD":15991,"mayoreoUnidad":6900.5,"activosUnidad":30,"nuevasUnidad":4,"califUnidad":5,"mayoreoPersonal":1543,"activosPersonal":23,"califEquipo":4,"mayoreoEquipo":4754.5,"offsprings":0,"estrellas":1,"nivelEstrella":"","persYTD":3086,"unidYTD":15991,"califConf":4,"comisConf":315.32,"puntos":58432,"autAward":"SD Pink Cadillac V2","autTipo":"Auto","autEstatus":"Recalificación : Q1","autRecal":"01/01/2026","autExceso":3029.8,"autMeta":54000,"autNec":44699.5,"cf":[null,null,null,null]},"3756IG":{"nombre":"Katherin Gutierrez","nivel":"DS","debut":"01/07/2023","prodYTD":11346,"mayoreoUnidad":4765,"activosUnidad":16,"nuevasUnidad":4,"califUnidad":4,"mayoreoPersonal":1127,"activosPersonal":16,"califEquipo":4,"mayoreoEquipo":3638,"offsprings":1,"estrellas":1,"nivelEstrella":"","persYTD":2254,"unidYTD":11346,"califConf":4,"comisConf":315.25,"puntos":26080,"autAward":"SD Premier Club V3","autTipo":"Efectivo","autEstatus":"Mantenimiento","autRecal":"","autExceso":114,"autMeta":33000,"autNec":25835,"cf":[null,null,null,null]},"3123QH":{"nombre":"Luisney Martinez","nivel":"DS","debut":"01/11/2023","prodYTD":762,"mayoreoUnidad":415.4,"activosUnidad":9,"nuevasUnidad":0,"califUnidad":0,"mayoreoPersonal":0,"activosPersonal":8,"califEquipo":0,"mayoreoEquipo":121,"offsprings":1,"estrellas":0,"nivelEstrella":"","persYTD":0,"unidYTD":762,"califConf":0,"comisConf":0,"puntos":12590,"autAward":"Ninguna recompensa","autTipo":"","autEstatus":"","autRecal":"","autExceso":0,"autMeta":22500,"autNec":22084.6,"cf":[null,null,null,null]},"1083QO":{"nombre":"Naizer Oliver","nivel":"DS","debut":"01/11/2024","prodYTD":20550,"mayoreoUnidad":8790,"activosUnidad":13,"nuevasUnidad":5,"califUnidad":4,"mayoreoPersonal":2054,"activosPersonal":13,"califEquipo":4,"mayoreoEquipo":6736,"offsprings":1,"estrellas":5,"nivelEstrella":"Perla","persYTD":4108,"unidYTD":20550,"califConf":4,"comisConf":606.24,"puntos":51561,"autAward":"SD Premier Club V3","autTipo":"Auto","autEstatus":"Mantenimiento : Q1","autRecal":"01/10/2026","autExceso":332.5,"autMeta":33000,"autNec":21810,"cf":[null,null,null,null]},"3231AO":{"nombre":"Estela Avendano","nivel":"DIR","debut":"01/11/2024","prodYTD":13831,"mayoreoUnidad":5666.5,"activosUnidad":20,"nuevasUnidad":5,"califUnidad":5,"mayoreoPersonal":606.5,"activosPersonal":19,"califEquipo":5,"mayoreoEquipo":5060,"offsprings":0,"estrellas":1,"nivelEstrella":"","persYTD":1213,"unidYTD":13831,"califConf":5,"comisConf":548.67,"puntos":37507,"autAward":"SD Grand Achiever V3","autTipo":"Efectivo","autEstatus":"Mantenimiento : Q1","autRecal":"01/10/2026","autExceso":8832.5,"autMeta":24000,"autNec":15333.5,"cf":[null,null,null,null]},"5687AP":{"nombre":"Disbreisy Acevedo","nivel":"DIR","debut":"01/01/2025","prodYTD":18036,"mayoreoUnidad":7717,"activosUnidad":21,"nuevasUnidad":5,"califUnidad":6,"mayoreoPersonal":868,"activosPersonal":19,"califEquipo":5,"mayoreoEquipo":6248,"offsprings":0,"estrellas":1,"nivelEstrella":"","persYTD":1736,"unidYTD":18036,"califConf":4,"comisConf":447.07,"puntos":46824,"autAward":"SD Grand Achiever V3","autTipo":"Efectivo","autEstatus":"Mantenimiento : Q1","autRecal":"01/10/2026","autExceso":916,"autMeta":24000,"autNec":13283,"cf":[null,null,null,null]},"8926EK":{"nombre":"Elisa Escalona","nivel":"DIR","debut":"01/07/2025","prodYTD":7610,"mayoreoUnidad":3805,"activosUnidad":7,"nuevasUnidad":0,"califUnidad":0,"mayoreoPersonal":0,"activosPersonal":0,"califEquipo":0,"mayoreoEquipo":0,"offsprings":0,"estrellas":1,"nivelEstrella":"","persYTD":0,"unidYTD":7610,"califConf":0,"comisConf":0,"puntos":36620,"autAward":"SD Premier Club V3","autTipo":"Efectivo","autEstatus":"Mantenimiento","autRecal":"","autExceso":10271.7,"autMeta":33000,"autNec":29195,"cf":[null,null,null,{"total":25809.6,"meta":15000,"nec":0,"cTot":2,"cMet":6,"cNec":4,"plazo":"30/06/2026","win":true}]},"5582FL":{"nombre":"Margelis Bohorquez","nivel":"DIR","debut":"01/08/2025","prodYTD":12895,"mayoreoUnidad":5539.5,"activosUnidad":18,"nuevasUnidad":4,"califUnidad":4,"mayoreoPersonal":602.5,"activosPersonal":17,"califEquipo":4,"mayoreoEquipo":4937,"offsprings":0,"estrellas":1,"nivelEstrella":"","persYTD":1205,"unidYTD":12895,"califConf":4,"comisConf":318.96,"puntos":36587,"autAward":"SD Grand Achiever V3","autTipo":"Auto","autEstatus":"Mantenimiento","autRecal":"01/07/2027","autExceso":4980.5,"autMeta":24000,"autNec":16060.5,"cf":[null,null,null,{"total":17180.5,"meta":15000,"nec":0,"cTot":12,"cMet":6,"cNec":0,"plazo":"31/07/2026","win":true}]},"8617JD":{"nombre":"Yadira Crespo Jaime","nivel":"DIR","debut":"01/10/2025","prodYTD":9395,"mayoreoUnidad":4509.5,"activosUnidad":15,"nuevasUnidad":4,"califUnidad":1,"mayoreoPersonal":2565.5,"activosPersonal":10,"califEquipo":1,"mayoreoEquipo":1136.5,"offsprings":0,"estrellas":1,"nivelEstrella":"Perla","persYTD":5131,"unidYTD":9395,"califConf":1,"comisConf":61.11,"puntos":25281,"autAward":"Ninguna recompensa","autTipo":"","autEstatus":"","autRecal":"","autExceso":0,"autMeta":22500,"autNec":17390.5,"cf":[null,null,{"total":15860.3,"meta":15000,"nec":0,"cTot":6,"cMet":6,"cNec":0,"plazo":"30/06/2026","win":true},{"total":4509.5,"meta":15000,"nec":10490.5,"cTot":1,"cMet":6,"cNec":5,"plazo":"30/09/2026","win":true}]},"7914IK":{"nombre":"Karla Godoy","nivel":"DS","debut":"01/01/2022","prodYTD":21208,"mayoreoUnidad":9692.4,"activosUnidad":28,"nuevasUnidad":5,"califUnidad":3,"mayoreoPersonal":1592,"activosPersonal":10,"califEquipo":1,"mayoreoEquipo":2445.5,"offsprings":1,"estrellas":2,"nivelEstrella":"Rubí","persYTD":3184,"unidYTD":21208,"califConf":1,"comisConf":109.8,"puntos":107760,"autAward":"SD Premier Club V3","autTipo":"Efectivo","autEstatus":"Mantenimiento","autRecal":"01/01/2027","autExceso":11048.25,"autMeta":33000,"autNec":22707.6,"cf":[null,null,null,null]},"7927QC":{"nombre":"Jennifer Ortega","nivel":"DS","debut":"01/05/2024","prodYTD":131,"mayoreoUnidad":1266,"activosUnidad":17,"nuevasUnidad":4,"califUnidad":0,"mayoreoPersonal":0,"activosPersonal":7,"califEquipo":0,"mayoreoEquipo":30,"offsprings":1,"estrellas":2,"nivelEstrella":"","persYTD":0,"unidYTD":131,"califConf":0,"comisConf":0,"puntos":47383,"autAward":"SD Grand Achiever V3","autTipo":"Efectivo","autEstatus":"Mantenimiento","autRecal":"","autExceso":13655.5,"autMeta":24000,"autNec":28056.3,"cf":[null,null,null,null]},"2507QJ":{"nombre":"Regla Marti","nivel":"DIR","debut":"01/05/2024","prodYTD":5021,"mayoreoUnidad":2456.7,"activosUnidad":13,"nuevasUnidad":3,"califUnidad":1,"mayoreoPersonal":0,"activosPersonal":5,"califEquipo":1,"mayoreoEquipo":1103.2,"offsprings":0,"estrellas":1,"nivelEstrella":"Perla","persYTD":0,"unidYTD":5021,"califConf":0,"comisConf":0,"puntos":55394,"autAward":"SD Premier Club V3","autTipo":"Efectivo","autEstatus":"Mantenimiento : Q1","autRecal":"","autExceso":636.35,"autMeta":33000,"autNec":29943.3,"cf":[null,null,null,null]},"2086ID":{"nombre":"Marina Gutierrez","nivel":"DIR","debut":"01/01/2025","prodYTD":0,"mayoreoUnidad":0,"activosUnidad":11,"nuevasUnidad":0,"califUnidad":0,"mayoreoPersonal":0,"activosPersonal":10,"califEquipo":0,"mayoreoEquipo":0,"offsprings":0,"estrellas":1,"nivelEstrella":"","persYTD":0,"unidYTD":0,"califConf":0,"comisConf":0,"puntos":21867,"autAward":"SD Grand Achiever V3","autTipo":"Efectivo","autEstatus":"Mantenimiento : Q1","autRecal":"01/10/2026","autExceso":492,"autMeta":24000,"autNec":24000,"cf":[null,null,null,null]},"6322UB":{"nombre":"Massiel Rodriguez","nivel":"DS","debut":"01/07/2024","prodYTD":8120,"mayoreoUnidad":3657,"activosUnidad":19,"nuevasUnidad":2,"califUnidad":2,"mayoreoPersonal":237.5,"activosPersonal":6,"califEquipo":2,"mayoreoEquipo":2530.5,"offsprings":1,"estrellas":1,"nivelEstrella":"","persYTD":475,"unidYTD":8120,"califConf":2,"comisConf":113.81,"puntos":48162,"autAward":"SD Grand Achiever V3","autTipo":"Efectivo","autEstatus":"Mantenimiento","autRecal":"","autExceso":8918.35,"autMeta":24000,"autNec":19143,"cf":[null,null,null,null]},"7520IF":{"nombre":"Gehovell Marentes","nivel":"DIR","debut":"01/07/2026","prodYTD":6350,"mayoreoUnidad":2540,"activosUnidad":22,"nuevasUnidad":2,"califUnidad":4,"mayoreoPersonal":30,"activosPersonal":19,"califEquipo":3,"mayoreoEquipo":1902,"offsprings":0,"estrellas":1,"nivelEstrella":"","persYTD":60,"unidYTD":6350,"califConf":0,"comisConf":0,"puntos":63604,"autAward":"Ninguna recompensa","autTipo":"","autEstatus":"","autRecal":"","autExceso":0,"autMeta":22500,"autNec":18160,"cf":[{"total":2540,"meta":15000,"nec":12460,"cTot":7,"cMet":6,"cNec":0,"plazo":"30/09/2026","win":false},null,null,null]},"3020JP":{"nombre":"Osmara Jorge","nivel":"DIR","debut":"01/03/2025","prodYTD":10848,"mayoreoUnidad":4502,"activosUnidad":17,"nuevasUnidad":3,"califUnidad":6,"mayoreoPersonal":864,"activosPersonal":15,"califEquipo":6,"mayoreoEquipo":3638,"offsprings":0,"estrellas":0,"nivelEstrella":"","persYTD":1728,"unidYTD":10848,"califConf":1,"comisConf":78.91,"puntos":21736,"autAward":"Ninguna recompensa","autTipo":"","autEstatus":"","autRecal":"","autExceso":0,"autMeta":22500,"autNec":14398,"cf":[null,null,null,null]},"5002QO":{"nombre":"Yilena Morciego","nivel":"DIR","debut":"01/10/2025","prodYTD":0,"mayoreoUnidad":0,"activosUnidad":3,"nuevasUnidad":0,"califUnidad":0,"mayoreoPersonal":0,"activosPersonal":2,"califEquipo":0,"mayoreoEquipo":0,"offsprings":0,"estrellas":0,"nivelEstrella":"","persYTD":0,"unidYTD":0,"califConf":0,"comisConf":0,"puntos":7359,"autAward":"Ninguna recompensa","autTipo":"","autEstatus":"","autRecal":"","autExceso":0,"autMeta":22500,"autNec":22500,"cf":[null,null,{"total":11651.2,"meta":15000,"nec":3348.8,"cTot":6,"cMet":6,"cNec":0,"plazo":"30/06/2026","win":true},null]},"3892VZ":{"nombre":"Bianca Quintero Marquez","nivel":"DIR","debut":"01/04/2026","prodYTD":7098,"mayoreoUnidad":2868.6,"activosUnidad":27,"nuevasUnidad":4,"califUnidad":4,"mayoreoPersonal":334,"activosPersonal":19,"califEquipo":4,"mayoreoEquipo":2513.6,"offsprings":0,"estrellas":0,"nivelEstrella":"","persYTD":668,"unidYTD":7098,"califConf":4,"comisConf":218.17,"puntos":46755,"autAward":"SD Grand Achiever V3","autTipo":"Efectivo","autEstatus":"Mantenimiento","autRecal":"","autExceso":622,"autMeta":24000,"autNec":18731.4,"cf":[{"total":20162.5,"meta":15000,"nec":0,"cTot":21,"cMet":6,"cNec":0,"plazo":"30/06/2026","win":true},{"total":2868.6,"meta":15000,"nec":12131.4,"cTot":4,"cMet":6,"cNec":2,"plazo":"30/09/2026","win":true},null,null]}};
+function showScreen(id){
+  document.getElementById('login-screen').style.display =id==='login'?'flex':'none';
+  document.getElementById('error-screen').style.display =id==='error'?'flex':'none';
+  document.getElementById('dashboard').style.display    =id==='dash'?'flex':'none';
+}
+function goLogin(){_code='';_loaded.clear();showScreen('login');document.getElementById('ci').value='';}
+function fmt(n){return'$'+Math.round(Math.abs(n||0)).toLocaleString('es-MX');}
+function pct(v,g){return!g?0:Math.min(100,Math.max(0,Math.round(v/g*100)));}
+function bdg(t,c){return`<span class="bdg ${c}">${t}</span>`;}
+function sBdg(p){return p>=100?bdg('✅ Meta lograda','bok'):p>=65?bdg('📈 En progreso','bwn'):bdg('⚡ Necesita avanzar','ber');}
+function pCard(label,val,goal,fmtFn,cls){
+  fmtFn=fmtFn||fmt;cls=cls||'';
+  const p=pct(val,goal),falt=Math.max(0,goal-val);
+  return`<div class="card ${cls}"><div class="cl">${label}</div><div class="cv">${fmtFn(val)}</div><div class="cm">Meta: ${fmtFn(goal)}</div>${sBdg(p)}<div class="pw"><div class="pl"><span>${p}%</span><span>Falta: ${fmtFn(falt)}</span></div><div class="pb"><div class="pf ${cls}" style="width:${p}%"></div></div></div></div>`;
+}
+function iCard(label,val,meta,btxt,bcls){
+  const fs=String(val).length>13?'14px':'21px';
+  return`<div class="card"><div class="cl">${label}</div><div class="cv" style="font-size:${fs}">${val||'—'}</div>${meta?`<div class="cm">${meta}</div>`:''} ${btxt?bdg(btxt,bcls||'binfo'):''}</div>`;
+}
+function errBlk(p){return`<div class="terr"><p>Sin datos de <strong>${p}</strong> para este código.</p></div>`;}
+function renderCom(code){
+  const d=DATOS[code];if(!d) return errBlk('Comisiones');
+  const mu=d.mayoreoUnidad||0,mp=d.mayoreoPersonal||0,me=d.mayoreoEquipo||0;
+  const cu=d.califUnidad||0,ce=d.califEquipo||0,au=d.activosUnidad||0;
+  const ap=d.activosPersonal||0,nu=d.nuevasUnidad||0,of=d.offsprings||0,py=d.prodYTD||0;
+  let uPct,uCls,uTxt;
+  if(mu>=5500){uPct=23;uCls='ok';uTxt='✅ 23% – Máxima comisión';}
+  else if(mu>=4500){uPct=13;uCls='wn';uTxt='📈 13% – Falta '+fmt(5500-mu)+' para el 23%';}
+  else{uPct=9;uCls='er';uTxt='⚡ 9% – Falta '+fmt(4500-mu)+' para el 13%';}
+  const uCom=Math.round(mu*uPct/100),t1=Math.round(4500/5500*100),uBar=Math.min(100,Math.round(mu/5500*100));
+  let ePct,eCls,eTxt;
+  if(ap>=5&&mp>=600){ePct=13;eCls='ok';eTxt='✅ 13% – Equipo calificado A1';}
+  else if(ap>=5){ePct=9;eCls='wn';eTxt='📈 9% – Pedido propio <$600 (falta para 13%)';}
+  else if(ap>=1){ePct=4;eCls='er';eTxt='⚡ 4% – Necesitas '+(5-ap)+' más activas para el 9%';}
+  else{ePct=0;eCls='er';eTxt='Sin integrantes activas este mes';}
+  const eCom=Math.round(me*ePct/100),eBar=Math.min(100,Math.round(ap/5*100));
+  let bonoU=0,bonoUTxt,bonoUCls;
+  if(cu>=4){bonoU=Math.min(1000,400+Math.max(0,cu-4)*100);bonoUTxt=bonoU>=1000?'🏆 Máximo $1,000':'🎉 Bono ganado: $'+bonoU;bonoUCls='bok';}
+  else{const f=4-cu;bonoUTxt='Faltan '+f+' calificada'+(f>1?'s':'')+' para el bono $400';bonoUCls=cu>0?'bwn':'ber';}
+  const bonoE=ce*100,stars=d.estrellas||0,nivelE=d.nivelEstrella||'—';
+  return`<h2 class="stitle">💰 Comisión de Unidad</h2>
+<div class="ibox">&nbsp;• <strong>9%</strong> → $0–$4,499 &nbsp;• <strong>13%</strong> → $4,500–$5,499 &nbsp;• <strong>23%</strong> → $5,500+</div>
+<div class="grid">
+<div class="card ${uCls}"><div class="cl">Mayoreo de unidad (col N)</div><div class="cv">${fmt(mu)}</div><div class="cm">Comisión: <strong>${uPct}%</strong> = estimado <strong>${fmt(uCom)}</strong></div>${bdg(uTxt,uPct===23?'bok':uPct===13?'bwn':'ber')}<div class="pw" style="margin-top:8px"><div class="pl"><span>$0</span><span style="margin-left:auto">$4,500</span><span style="margin-left:auto">$5,500</span></div><div class="pb" style="position:relative;background:#f0e0eb;height:10px"><div style="position:absolute;left:0;width:${t1}%;height:100%;background:#fde8ef;border-right:2px dashed #e9b4c8"></div><div style="position:absolute;left:${t1}%;width:${100-t1}%;height:100%;background:#fef3e2;border-right:2px dashed #e9d07a"></div><div class="pf ${uCls}" style="position:relative;width:${uBar}%;height:100%;z-index:1"></div></div><div class="pl" style="margin-top:3px"><span>9%</span><span style="margin-left:auto">13%</span><span style="margin-left:auto">23%</span></div></div></div>
+${iCard('Producción unidad YTD',fmt(py),'Acumulado año seminario')}
+${iCard('Consultoras activas',au,'En tu unidad',au>=15?'Excelente':au>=8?'Buen ritmo':'Seguir creciendo',au>=15?'bok':au>=8?'bwn':'ber')}
+</div>
+<h2 class="stitle">🤝 Comisión por Equipo Personal</h2>
+<div class="ibox">&nbsp;• <strong>4%</strong> → 1–4 activas &nbsp;• <strong>9%</strong> → 5+ activas &nbsp;• <strong>13%</strong> → 5+ activas A1 + pedido ≥$600</div>
+<div class="grid">
+<div class="card ${eCls}"><div class="cl">Mayoreo equipo personal</div><div class="cv">${fmt(me)}</div><div class="cm">Comisión: <strong>${ePct}%</strong> = estimado <strong>${fmt(eCom)}</strong></div>${bdg(eTxt,ePct===13?'bok':ePct===9?'bwn':'ber')}<div class="pw" style="margin-top:8px"><div class="pl"><span>Activas: <strong>${ap}</strong></span><span style="margin-left:auto">Meta: 5</span></div><div class="pb"><div class="pf ${eCls}" style="width:${eBar}%"></div></div></div>${ePct===9?`<div class="cm" style="margin-top:6px">Pedido propio: ${fmt(mp)} ${mp>=600?'✅':'→ falta $'+fmt(600-mp)+' para 13%'}</div>`:''}</div>
+${iCard('Integrantes activas',ap,'Tu equipo personal',ap>=5?'5+ activas ✓':'Faltan '+(5-ap)+' para 9%',ap>=5?'bok':'bwn')}
+<div class="card go"><div class="cl">Estimado total comisiones</div><div class="cv">${fmt(uCom+eCom)}</div><div class="cm">${fmt(uCom)} unidad + ${fmt(eCom)} equipo</div>${bdg('Estimado sin deducciones MK','binfo')}</div>
+</div>
+<h2 class="stitle">🎁 Bono CG – Unidad (col W)</h2>
+<div class="ibox">4 calificadas CG de unidad → <strong>$400</strong>; cada adicional → <strong>+$100</strong>; máximo <strong>$1,000</strong>/mes.</div>
+<div class="grid">
+<div class="card ${bonoU>0?'ok':''}"><div class="cl">Calificadas CG Unidad (col W)</div><div class="cv">${cu}</div><div class="cm">Mínimo 4 para activar bono</div>${bdg(bonoUTxt,bonoUCls)}<div class="pw"><div class="pl"><span>${cu} de 4 mínimo</span><span style="margin-left:auto">Máx: 10</span></div><div class="pb"><div class="pf ${bonoU>0?'ok':''}" style="width:${Math.min(100,Math.round(cu/10*100))}%"></div></div></div></div>
+<div class="card go"><div class="cl">Bono Unidad estimado</div><div class="cv">${bonoU>0?'$'+bonoU:'$0'}</div><div class="cm">${cu>=4?cu+' calificadas → $400'+(cu>4?' + $'+((cu-4)*100)+' adicional':''):'Necesitas '+(4-cu)+' más'}</div>${bonoU>=1000?bdg('🏆 Máximo','bok'):bonoU>0?bdg('✅ Bono activo','bok'):bdg('Sin bono aún','ber')}</div>
+${iCard('Nuevas integrantes (mes)',nu,'Incorporaciones este mes',nu>=4?nu+' nuevas ✓':nu>0?nu+' nueva'+(nu>1?'s':''):'Sin nuevas',nu>=4?'bok':nu>0?'bwn':'ber')}
+</div>
+<h2 class="stitle">🎁 Bono CG – Equipo (col AE)</h2>
+<div class="ibox">Bono independiente: <strong>$100</strong> por cada calificada CG de equipo, sin mínimo requerido.</div>
+<div class="grid">
+<div class="card ${ce>0?'ok':''}"><div class="cl">Calificadas CG Equipo (col AE)</div><div class="cv">${ce}</div><div class="cm">$100 por cada una</div>${ce>0?bdg('🎉 Bono: $'+bonoE,'bok'):bdg('Sin calificadas de equipo','bwn')}</div>
+<div class="card ${bonoE>0?'go':''}"><div class="cl">Bono Equipo estimado</div><div class="cv">${bonoE>0?'$'+bonoE:'$0'}</div><div class="cm">${ce} calificada${ce!==1?'s':''} × $100</div>${bonoE>0?bdg('✅ Bono activo','bok'):bdg('$0 este mes','binfo')}</div>
+</div>
+<h2 class="stitle">⭐ Estrellas de Unidad – Q1</h2>
+<div class="ibox"><strong>Bono:</strong> $300 × 5 Consultoras Estrella + $50 por cada adicional. &nbsp;<strong>Q1:</strong> 16 jul – 15 sep 2026</div>
+<div class="grid">
+${pCard('Estrellas de Unidad (col J – Q1)',stars,5,n=>n+' ⭐','go')}
+${iCard('Nivel Estrella Personal',nivelE,'Tu calificación estrella')}
+${of>0?iCard('Directoras descendientes',of,'',of+' descendiente'+(of>1?'s':''),'binfo'):''}
+</div>`;
+}
+function renderPA(code){
+  const d=DATOS[code];if(!d) return errBlk('Primer Año');
+  const cfs=d.cf||[null,null,null,null];
+  const labels=['1️⃣ Comienza con Fuerza – Meses 1-3','2️⃣ Crece con Fuerza – Meses 4-6','3️⃣ Sigue con Fuerza – Meses 7-9','4️⃣ Dirige con Fuerza – Meses 10-12'];
+  function retoCard(label,cf){
+    if(!cf) return`<div class="card" style="opacity:.4;border-left-color:#ccc"><div class="cl">${label}</div><div class="cv" style="font-size:14px;color:var(--gy)">No inscrita</div><div class="cm">No aplica en este período</div>${bdg('Sin período activo','binfo')}</div>`;
+    const tot=cf.total||0,met=cf.meta||15000,nec=Math.max(0,cf.nec||0);
+    const cTot=cf.cTot||0,cMet=cf.cMet||6,cNec=Math.max(0,cf.cNec||0);
+    const plazo=cf.plazo||'—',win=cf.win||false;
+    const p1=pct(tot,met),p2=pct(cTot,cMet),cls=win||(p1>=100&&p2>=100)?'ok':'';
+    const b=win?bdg('🏆 Ganadora – $1,000','bok'):(p1>=100&&p2>=100)?bdg('✅ Meta lograda – $1,000','bok'):(p1>=65||p2>=65)?bdg('📈 En progreso','bwn'):bdg('⚡ Necesita avanzar','ber');
+    return`<div class="card ${cls}"><div class="cl">${label}</div><div class="g2"><div class="ms"><label>Producción</label><div class="v">${fmt(tot)}</div><div class="m">Meta: ${fmt(met)}</div><div class="pb" style="margin-top:4px"><div class="pf ${cls}" style="width:${p1}%"></div></div><div class="m" style="margin-top:2px">${p1}% · ${nec>0?'Falta: '+fmt(nec):'✓ Lista'}</div></div><div class="ms"><label>Calificadas</label><div class="v">${cTot||'—'}</div><div class="m">Meta: ${cMet}</div><div class="pb" style="margin-top:4px"><div class="pf go" style="width:${p2}%"></div></div><div class="m" style="margin-top:2px">${p2}% · ${cNec>0?'Falta: '+cNec:'✓ Lista'}</div></div></div><div class="cm" style="margin-top:4px">📅 ${plazo}</div>${b}</div>`;
+  }
+  const hayAlguno=cfs.some(c=>c!=null);
+  return`<h2 class="stitle">🌟 Programa Director Primer Año</h2>
+<div class="ibox"><strong>$1,000 por cada reto trimestral:</strong> <strong>$15,000</strong> producción + <strong>6 calificadas</strong> CG®.<br>Ganar los 4 = <strong>$1,000 adicional</strong> + banner Fabulosos 50.</div>
+${!hayAlguno?'<div class="nota">No apareces en ningún programa activo de Primer Año este período.</div>':''}
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(255px,1fr))">${labels.map((l,i)=>retoCard(l,cfs[i])).join('')}</div>`;
+}
+function renderConf(code){
+  const d=DATOS[code];if(!d) return errBlk('Conferencia');
+  const persYTD=d.persYTD||0,unidYTD=d.unidYTD||0,calif=d.califConf||0;
+  const stars=d.estrellas||0,nivel=d.nivelEstrella||'—',puntos=d.puntos||0;
+  const M1=27500,M2=15,M3=200000;
+  const ok1=persYTD>=M1,ok2=calif>=M2,ok3=unidYTD>=M3;
+  const retos=[ok1,ok2,ok3].filter(Boolean).length;
+  return`<h2 class="stitle">🏆 Conferencia de Liderazgo 2027</h2>
+<div class="ibox"><strong>Fiesta Velada al Atardecer:</strong> 2 de 3 retos (1 jul – 31 dic 2026):<br>① $27,500 ventas personales &nbsp; ② 15 nuevas calificadas &nbsp; ③ $200,000 volumen unidad</div>
+<div class="rsum"><div style="font-size:12px;color:var(--gy)">Retos completados</div><div style="font-size:36px;font-weight:700;color:var(--dk)">${retos} / 3</div>${retos>=2?bdg('🎊 Entrada VIP – Velada al Atardecer','bok'):retos===1?bdg('🎉 1 de 2 retos logrados','bwn'):bdg('Sin elegibilidad aún','ber')}</div>
+<div class="grid">${pCard('① Ventas Personales YTD',persYTD,M1,fmt,ok1?'ok':'')}${pCard('② Nuevas Calificadas',calif,M2,n=>String(n),ok2?'ok':'')}${pCard('③ Volumen de Unidad YTD',unidYTD,M3,fmt,ok3?'ok':'')}</div>
+<h2 class="stitle">⭐ Estrellas & Puntos al Paraíso</h2>
+<div class="grid">${pCard('Estrellas de Unidad',stars,14,n=>n+' ⭐','go')}${iCard('Nivel Estrella Personal',nivel,'',nivel&&nivel!=='—'?'Estrella activa':'Sin nivel',nivel&&nivel!=='—'?'bok':'bwn')}${iCard('Puntos al Paraíso',puntos?puntos.toLocaleString('es-MX'):'—','Top 10 → escenario',puntos>0?'En ranking':'—',puntos>0?'binfo':'bwn')}</div>`;
+}
+function renderAuto(code){
+  const d=DATOS[code];if(!d) return errBlk('Auto Profesional');
+  const award=d.autAward||'',tipo=d.autTipo||'',estatus=d.autEstatus||'';
+  const recal=d.autRecal||'',exceso=d.autExceso||0,meta=d.autMeta||0,nec=d.autNec||0;
+  const activo=/mantenimiento|recalificaci/i.test(estatus);
+  let car='—',carMeta=0,cls='';
+  if(/Grand Achiever/i.test(award)){car='🚗 Gran Ganadora';carMeta=24000;cls='wn';}
+  if(/Premier Club/i.test(award)){car='🚙 Club de Primera';carMeta=33000;}
+  if(/Cadillac/i.test(award)){car='🏎️ Cadillac Rosado';carMeta=57000;cls='ok';}
+  if(/Ninguna/i.test(award)){car='Sin programa activo';carMeta=0;}
+  const prodActual=carMeta>0&&nec>0?Math.max(0,carMeta-nec):carMeta;
+  return`<h2 class="stitle">🚗 Uso del Auto Profesional</h2>
+<div class="ibox"><strong>Gran Ganadora:</strong> $24,000/trim &nbsp; <strong>Club de Primera:</strong> $33,000/trim &nbsp; <strong>Cadillac:</strong> $57,000/trim</div>
+<div class="grid">${iCard('Programa actual',car,award,activo?'Activo':'Sin programa activo',activo?'bok':'bwn')}${tipo?iCard('Tipo de recompensa',tipo,''):''}${iCard('Estatus',estatus||'—','',activo?'Vigente':'—',activo?'bok':'binfo')}${recal?iCard('Próx. recalificación',recal,''):''}</div>
+${carMeta>0?`<h2 class="stitle">📊 Progreso trimestral</h2><div class="grid">${pCard('Producción este trimestre',prodActual,carMeta,fmt,cls)}${iCard('Faltante para meta',nec>0?fmt(nec):'✅ Completa',nec>0?'Para '+fmt(carMeta):'',nec<=0?'Sin deuda':'Pendiente',nec<=0?'bok':'ber')}${exceso>0?iCard('Exceso acumulado',fmt(exceso),'Crédito trimestres anteriores','Disponible','bok'):''}</div>`:''}`;
+}
+function renderCortes(code){
+  const d=DATOS[code];if(!d) return errBlk('Cortes de Seminario');
+  const persYTD=d.persYTD||0,unidYTD=d.unidYTD||0,calif=d.califConf||0,comis=d.comisConf||0;
+  const M_V=45000,M_C=24,M_L=300000,M_E=650000;
+  const rv=persYTD>=M_V,rc=calif>=M_C,rl=unidYTD>=M_L,re=unidYTD>=M_E;
+  function cortCard(label,val,goal,fmtFn,logrado,premio){
+    const p=pct(val,goal);
+    return`<div class="card ${logrado?'ok':''}"><div class="cl">${label}</div><div class="cv">${fmtFn(val)}</div><div class="cm">Meta: ${fmtFn(goal)}</div>${logrado?bdg(premio,'bok'):sBdg(p)}<div class="pw"><div class="pl"><span>${p}%</span><span>Falta: ${fmtFn(Math.max(0,goal-val))}</span></div><div class="pb"><div class="pf ${logrado?'ok':''}" style="width:${p}%"></div></div></div></div>`;
+  }
+  return`<h2 class="stitle">🎖️ Cortes de Seminario 2027</h2>
+<div class="ibox"><strong>Período:</strong> 1 jul 2026 – 30 jun 2027<br>💍 Corte Ventas $45,000 &nbsp; 🐝 Corte Compartir 24 nuevas &nbsp; 💰 Círculo Logros $300K &nbsp; ✈️ Excelencia $650K</div>
+<div class="grid">${cortCard('Corte de Ventas Personales',persYTD,M_V,fmt,rv,'💍 Anillo Amatista o $500')}${cortCard('Corte de Compartir',calif,M_C,n=>String(n),rc,'🐝 Broche Abeja o $525')}</div>
+<div class="grid">${cortCard('Círculo de Logros',unidYTD,M_L,fmt,rl,'💰 Gratificación $1,000')}<div class="card ${re?'ok':'go'}"><div class="cl">Círculo de la Excelencia</div><div class="cv">${fmt(unidYTD)}</div><div class="cm">Meta: ${fmt(M_E)}</div>${re?bdg('✈️ Viaje a Roma','bok'):bdg('Falta: '+fmt(M_E-unidYTD),'binfo')}<div class="pw"><div class="pl"><span>${pct(unidYTD,M_E)}%</span><span>${fmt(M_E)}</span></div><div class="pb"><div class="pf go" style="width:${pct(unidYTD,M_E)}%"></div></div></div></div></div>
+${comis>0?`<div class="grid">${iCard('Comisiones ganadas YTD',fmt(comis),'Acumulado año Seminario','Activas','bok')}</div>`:''}`;
+}
+const RENDERS=[renderCom,renderPA,renderConf,renderAuto,renderCortes];
+const _loaded=new Set();let _code='';
+function showTab(idx){
+  document.querySelectorAll('.tabp').forEach((el,i)=>el.classList.toggle('on',i===idx));
+  document.querySelectorAll('.tbtn').forEach((el,i)=>el.classList.toggle('on',i===idx));
+  if(_loaded.has(idx)) return;_loaded.add(idx);
+  const el=document.getElementById('t'+idx);
+  try{el.innerHTML=RENDERS[idx](_code);}
+  catch(e){el.innerHTML=`<div class="terr">⚠️ Error: ${e.message}</div>`;}
+}
+function doLogin(){
+  const code=document.getElementById('ci').value.trim().toUpperCase();
+  if(!code) return;
+  const d=DATOS[code];
+  if(!d){document.getElementById('errmsg').textContent=`Código "${code}" no encontrado (${Object.keys(DATOS).length} directoras). Verifica en InTouch®.`;showScreen('error');return;}
+  document.getElementById('dname').textContent=d.nombre;
+  document.getElementById('dinfo').textContent=[d.nivel,d.debut?'Debut: '+d.debut:'','Código: '+code].filter(Boolean).join(' · ');
+  _code=code;_loaded.clear();
+  for(let i=1;i<5;i++) document.getElementById('t'+i).innerHTML='';
+  showScreen('dash');showTab(0);
+}
+</script>
+</body>
+</html>
